@@ -1,0 +1,42 @@
+doctype
+html
+  head
+    meta(charset='UTF-8')
+    title= title
+    meta(name='viewport' content='width=device-width, user-scalable=no')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    link(rel='stylesheet' href='/main.css')
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+    body
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='/') I.WOP
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/')
+              | Home 
+              span.sr-only (current)
+          li.nav-item.active
+            a.nav-link(href='/profile') Profile
+          li.nav-item.active
+            a.nav-link(href='/auth/logout') Logout
+        form.form-inline.my-2.my-lg-0(action='/post/hashtag')
+          input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search' name='hashtag' )
+          button.btn#search(type='submit' ) Search
+    .timeline
+      form#join-form(action='/auth/join' method='post')
+        .input-group
+          label(for='join-email') Email
+          input#join-email(type='email' name='email')
+        .input-group
+          label(for='join-nick') Name
+          input#join-nick(type='text' name='nick')
+        .input-group
+          label(for='join-password') Password
+          input#join-password(type='password' name='password')
+        if joinError
+          .error-message= joinError
+        button#join-btn.btn(type='submit') Sign up

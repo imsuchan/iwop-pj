@@ -1,0 +1,54 @@
+doctype
+html
+  head
+    meta(charset='UTF-8')
+    title= title
+    meta(name='viewport' content='width=device-width, user-scalable=no')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    link(rel='stylesheet' href='/main.css')
+    link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")
+    body
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='/') I.WOP
+      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item.active
+            a.nav-link(href='/')
+              | Home 
+              span.sr-only (current)
+          li.nav-item.active
+            a.nav-link(href='/profile') Profile
+          li.nav-item.active
+            a.nav-link(href='/auth/logout') Logout
+        form.form-inline.my-2.my-lg-0(action='/post/hashtag')
+          input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search' name='hashtag' )
+          button.btn#search(type='submit' ) Search
+    .container
+      .profile-wrap
+        .profile
+          if user && user.id
+            .user-name= user.nick
+            .half
+              div following
+              .count.following-count= user.Followings && user.Followings.length || 0
+            .half
+              div follower
+              .count.follower-count= user.Followers && user.Followers.length || 0
+            input#my-id(type='hidden' value=user.id)
+          else
+            form#login-form(action='/auth/login' method='post')
+              .input-group
+                label(for='email') Email
+                input#email(type='email' name='email' required autofocus)
+              .input-group
+                label(for='password') Password
+                input#password(type='password' name='password' required)
+              if loginError
+                .error-message= loginError
+              a#join.btn(href='/join') Sign up
+              button#login.btn(type='submit') Sign in
+
+      block content
